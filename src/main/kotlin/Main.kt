@@ -1,6 +1,6 @@
 package org.example
 
-import org.example.genetic_algorithm.fitness
+import org.example.genetic_algorithm.GeneticAlgorithm
 import org.example.model.House
 import org.example.model.HouseType
 import org.example.model.Location
@@ -13,5 +13,4 @@ fun main() {
        location = Location.CITY_CENTER,
        type = HouseType.VILLA
    )
-    println(fitness(house))
 }
