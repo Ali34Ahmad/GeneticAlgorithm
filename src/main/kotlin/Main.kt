@@ -1,8 +1,17 @@
 package org.example
 
-import kotlin.io.println
+import org.example.genetic_algorithm.fitness
+import org.example.model.House
+import org.example.model.HouseType
+import org.example.model.Location
+import org.example.model.NumberOfRooms
 
 
 fun main() {
-    println("hello Ali")
+   val house = House(
+       numberOfRooms = NumberOfRooms.R7,
+       location = Location.CITY_CENTER,
+       type = HouseType.VILLA
+   )
+    println(fitness(house))
 }
