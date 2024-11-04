@@ -16,5 +16,5 @@ internal fun fitness(house: House): Int{
     val houseLocationFitness = HouseFitness.locations[house.location]?:0
 
 
-    return numberOfRoomsFitness + houseLocationFitness + houseTypeFitness ;
+    return numberOfRoomsFitness + houseLocationFitness + houseTypeFitness
 }
