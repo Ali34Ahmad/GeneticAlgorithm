@@ -1,13 +1,13 @@
 package org.example.dataset
 
-import org.example.model.HouseType
-import org.example.model.Location
-import org.example.model.NumberOfRooms
+import org.example.model.HouseFeature.HouseType
+import org.example.model.HouseFeature.Location
+import org.example.model.HouseFeature.NumberOfRooms
 
 /**
- * @author Ali Mansoura
  * This class will show the current statistics about house types,
- * locations and number of rooms by house purchase
+ * locations and number of rooms by house purchase.
+ * @author Ali Mansoura
  */
 object HouseFitness {
     val types : MutableMap<HouseType, Int> = InitialDataset.houseTypes
@@ -20,7 +20,9 @@ object HouseFitness {
             as MutableMap<NumberOfRooms, Int>
 }
 
-
+/**
+ * this is the initial dataset that represents the preferred customers houses.
+ */
 private  object InitialDataset {
     val houseTypes :Map<HouseType, Int> = mapOf(
         HouseType.DETACHED to 20,
