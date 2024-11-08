@@ -1,7 +1,9 @@
 package org.example.genetic_algorithm
 
 import org.example.model.House
+import org.example.model.HouseFeature
 import kotlin.random.Random
+import kotlin.reflect.KClass
 
 /**
  * This class represents an individual of the Genetic Algorithm
@@ -25,10 +27,58 @@ data class Individual(
      * @author Ali Ahmad
      */
     fun mate(secondParent: Individual): Individual {
-        val crossoverPoint = Random.nextInt(1, 3) // Random crossover point (1 or 2)
-        val location = if (Random.nextBoolean()) this.house.location else secondParent.house.location
-        val type = if (crossoverPoint >= 2) this.house.type else secondParent.house.type
-        val numberOfRooms = if (crossoverPoint >= 1) this.house.numberOfRooms else secondParent.house.numberOfRooms
+        val locationPoints = Random.nextInt(100) // Random locationPoints point (0 to 100)
+        val typePoints = Random.nextInt(100) // Random typePoints point (0 to 100)
+        val numberOfRoomsPoints = Random.nextInt(100) // Random numberOfRoomsPoints point (0 to 100)
+
+        val location = getLocation(locationPoints,secondParent)
+        val type = getTypePoints(typePoints,secondParent)
+        val numberOfRooms = getNumberOfRoomsPoints(numberOfRoomsPoints,secondParent)
+
         return Individual(House(location = location, type = type, numberOfRooms = numberOfRooms))
+    }
+
+    private fun getLocation(locationPoints: Int, secondParent: Individual): HouseFeature.Location {
+        return if (locationPoints < 45) {
+            this.house.location
+        } else if (locationPoints < 90) {
+            secondParent.house.location
+        } else {
+            GeneticAlgorithm.mutateGene(this.house.location) as HouseFeature.Location
+        }
+    }
+
+    private fun getTypePoints(houseTypePoints: Int, secondParent: Individual): HouseFeature.HouseType {
+        return if (houseTypePoints < 45) {
+            this.house.type
+        } else if (houseTypePoints < 90) {
+            secondParent.house.type
+        } else {
+            GeneticAlgorithm.mutateGene(this.house.type) as HouseFeature.HouseType
+        }
+    }
+
+    private fun getNumberOfRoomsPoints(numberOfRoomsPoints: Int, secondParent: Individual): HouseFeature.NumberOfRooms {
+        return if (numberOfRoomsPoints < 45) {
+            this.house.numberOfRooms
+        } else if (numberOfRoomsPoints < 90) {
+            secondParent.house.numberOfRooms
+        } else {
+            GeneticAlgorithm.mutateGene(this.house.numberOfRooms) as HouseFeature.NumberOfRooms
+        }
+    }
+
+
+}
+
+sealed class Shape {
+    object Circle : Shape()
+    object Square : Shape()
+    object Triangle : Shape()
+
+    companion object {
+        fun getChildren(): List<KClass<*>> {
+            return Shape::class.sealedSubclasses
+        }
     }
 }
