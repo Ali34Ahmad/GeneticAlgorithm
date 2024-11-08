@@ -68,17 +68,4 @@ data class Individual(
         }
     }
 
-
-}
-
-sealed class Shape {
-    object Circle : Shape()
-    object Square : Shape()
-    object Triangle : Shape()
-
-    companion object {
-        fun getChildren(): List<KClass<*>> {
-            return Shape::class.sealedSubclasses
-        }
-    }
 }
