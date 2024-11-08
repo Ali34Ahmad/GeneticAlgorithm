@@ -5,6 +5,5 @@ import org.example.model.HouseFeature
 
 
 fun main() {
-    for (i in 0 .. 100)
-        println(GeneticAlgorithm.mutateGene(HouseFeature.NumberOfRooms.R7))
+//    GeneticAlgorithm.runAlgorithm()
 }

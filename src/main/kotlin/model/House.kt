@@ -5,9 +5,9 @@ import org.example.model.HouseFeature.Location
 import org.example.model.HouseFeature.NumberOfRooms
 
 data class House(
-    val numberOfRooms: NumberOfRooms,
-    val location: Location,
-    val type: HouseType,
+    var numberOfRooms: NumberOfRooms,
+    var location: Location,
+    var type: HouseType,
 )
 sealed interface HouseFeature{
     enum class HouseType: HouseFeature {
