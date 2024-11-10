@@ -1,6 +1,7 @@
 package org.example.genetic_algorithm
 
 import org.example.dataset.HouseFitness
+import org.example.dataset.ProhibitedFeatures
 import org.example.model.House
 import org.example.model.HouseFeature
 import kotlin.random.Random
@@ -18,6 +19,9 @@ class GeneticAlgorithm {
          * @author Ali Mansoura.
          */
         fun calculateFitness(house: House): Int {
+            //If the house contains prohibited features it will be undesirable.
+            if(house.containsProhibitedFeatures())
+                return 0
 
             val numberOfRoomsFitness = HouseFitness.numberOfRooms[house.numberOfRooms] ?: 0
 
@@ -35,10 +39,15 @@ class GeneticAlgorithm {
          * @author Ali Mansoura.
          */
         private fun getTheTargetFitness(): Int {
+            //first we remove the unacceptable features
+            val types = HouseFitness.types - ProhibitedFeatures.prohibitedTypes
+            val locations = HouseFitness.locations - ProhibitedFeatures.prohibitedLocations
+            val numberOfRooms = HouseFitness.numberOfRooms - ProhibitedFeatures.prohibitedNumberOfRooms
 
-            val maxTypesFitness = HouseFitness.types.maxOf { it.value }
-            val maxLocationFitness = HouseFitness.locations.maxOf { it.value }
-            val maxNumberOfRoomsFitness = HouseFitness.numberOfRooms.maxOf { it.value }
+            //then we got the maximum fitness of each feature
+            val maxTypesFitness = types.maxOf { it.value }
+            val maxLocationFitness = locations.maxOf { it.value }
+            val maxNumberOfRoomsFitness = numberOfRooms.maxOf { it.value }
 
             return maxTypesFitness + maxLocationFitness + maxNumberOfRoomsFitness
         }
@@ -112,7 +121,7 @@ class GeneticAlgorithm {
 
             // Define termination condition (target fitness or maximum generations)
             val targetFitness = getTheTargetFitness()
-            println("the target fitness")
+            println("the target fitness : $targetFitness")
             var generationCount = 0
             var bestFitness = currentGeneration.first().fitness
 
@@ -155,7 +164,6 @@ class GeneticAlgorithm {
                 newGeneration.addAll(offspring)
 
                 newGeneration.sortDescending()
-
 
                 // need this codes
                 currentGeneration.clear()

@@ -1,9 +1,10 @@
 package org.example.genetic_algorithm
 
+import org.example.dataset.InitialDataset
+import org.example.dataset.ProhibitedFeatures
 import org.example.model.House
 import org.example.model.HouseFeature
 import kotlin.random.Random
-import kotlin.reflect.KClass
 
 /**
  * This class represents an individual of the Genetic Algorithm
@@ -17,7 +18,9 @@ data class Individual(
 
     val fitness = GeneticAlgorithm.calculateFitness(house)
 
-    //We can now compare two individuals by their fitness.
+    /*We can now compare two individuals by their fitness.
+      we will use it for sorting.
+    */
     override fun compareTo(other: Individual): Int {
         return this.fitness.compareTo(other.fitness)
     }
